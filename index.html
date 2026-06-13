@@ -9,8 +9,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-        content="width=device-width,initial-scale=1,minimum-scale=0.5,maximum-scale=2.0,user-scalable=yes">
     <meta name="robots" content="noindex, nofollow">
 
 
@@ -106,16 +104,16 @@
     <script src="./assets/jquery.mCustomScrollbar.js"></script>
     <script src="./assets/jquery.mousewheel.min.js"></script>
     <style>
-        body {
+        html, body {
             width: 100%;
+            overflow-x: hidden;
         }
 
         #wrap {
-            max-width: 800px;
-            margin: 0 auto;
-            min-width: 320px;
+            width: 800px;
             min-height: 100px;
             overflow: hidden;
+            transform-origin: top left;
         }
     </style>
     <style>
@@ -1371,6 +1369,27 @@
         setTimeout(function () {
             $(".loader_mcard").hide();
         }, 2000);
+    </script>
+    <script>
+        // 정적 배포 반응형: 800px 고정 캔버스를 뷰포트 폭에 맞춰 비례 축소(transform scale)
+        (function () {
+            var wrap = document.getElementById('wrap');
+            if (!wrap) return;
+            function fitCanvas() {
+                var vw = document.documentElement.clientWidth;
+                var scale = Math.min(1, vw / 800);
+                var scaledW = 800 * scale;
+                var tx = Math.max(0, (vw - scaledW) / 2);
+                wrap.style.transform = 'translateX(' + tx + 'px) scale(' + scale + ')';
+                // transform은 레이아웃 박스를 줄이지 않으므로, 아래 빈 공간을 음수 마진으로 회수
+                wrap.style.marginBottom = '-' + (wrap.offsetHeight * (1 - scale)) + 'px';
+            }
+            fitCanvas();
+            window.addEventListener('resize', fitCanvas);
+            window.addEventListener('load', fitCanvas);
+            // 이미지·영상·지도 등 비동기 콘텐츠 로드로 높이가 바뀌므로 재계산
+            [300, 1000, 2500].forEach(function (t) { setTimeout(fitCanvas, t); });
+        })();
     </script>
 
 
