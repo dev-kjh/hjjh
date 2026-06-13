@@ -118,6 +118,18 @@
             overflow: hidden;
         }
     </style>
+    <style>
+        /* 정적 배포: 서버 백엔드가 없어 동작 불가한 방명록 컨트롤 숨김
+           (저장된 축하글 #guestbook 목록은 그대로 노출) */
+        .write_box,
+        .btn_save_guestbook,
+        .message_del,
+        .btn_delete_guestbook,
+        .btn_guestbook_more,
+        .btn_guestbook_all {
+            display: none !important;
+        }
+    </style>
 </head>
 
 <body>
