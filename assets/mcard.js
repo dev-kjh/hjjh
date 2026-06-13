@@ -427,7 +427,7 @@ $(document).ready(function (e) {
         address: $("#addressDetail").text()
     });
     if (outlineType == "OTC01") {
-        strMapMedia = '<iframe id="map" src="/Mcard/NaverMap/' + invitationId + '" width="750" height="320" frameborder="0" style="border: 0" allowfullscreen></iframe>';
+        strMapMedia = '<iframe id="map" src="./assets/106732.html" width="750" height="320" frameborder="0" style="border: 0" allowfullscreen></iframe>';
     }
     else {
         if (outlineImage != "") {
