@@ -56,15 +56,8 @@
 
         var host = "https://barunsonmcard.com";
 
-        $.ajax({
-            type: "POST",
-            url: "/Member/Invitation_Display_Chk/" + InvitationId,
-            async: false,
-            success: function (result) {
-
-                Invitation_Display_YN = result;
-            }
-        });
+        // 정적 배포: 공개여부 체크 백엔드(/Member/Invitation_Display_Chk)가 없어
+        // POST가 405를 냄. 결과를 쓰던 비공개 처리 로직(아래)도 이미 비활성이라 호출 제거.
         //  alert(Invitation_Display_YN);
 
         // 비공개 조건 -  청첩장 - 예식일로부터 3개월이 지나거나 감사장 - 구매일 기준로부터 3개월이 지나거나 초대장 공개 여부가 N으로 설정되었을때나 결재취소OR입금대기
@@ -189,6 +182,14 @@
 
             .etc_info {
                 margin: 20px 10px 20px 10px;
+            }
+
+            /* 교통안내(버스/자가용/셔틀버스) 텍스트도 scale로 줄어듦.
+               방명록과 동일하게 1/scale 보정 → 모바일에서도 화면 실제 ~16px 유지.
+               PC(scale=1)에선 16px 그대로라 기존과 동일. */
+            .etc_info strong,
+            .etc_info span {
+                font-size: calc(16px * var(--inv-scale, 1));
             }
 
             #area11 li {

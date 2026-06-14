@@ -279,7 +279,11 @@ $(document).ready(function (e) {
     }
 
     if ($("#Objects").text() != "") {
-        objects = JSON.parse($("#Objects").text());
+        // 정적 배포: #Objects JSON 문자열에 줄바꿈(제어문자)이 섞여 파싱이 실패함.
+        // 원래 이 throw가 ready 핸들러를 중단시켜 이후 동적 초기화가 휴면 상태였고,
+        // 디자인은 정적 <img>로 정상 노출되어 왔다. 동작을 그대로 보존하기 위해
+        // 실패 시 동일하게 핸들러를 빠져나가되, 콘솔 Uncaught 오류만 없앤다.
+        try { objects = JSON.parse($("#Objects").text()); } catch (e) { return; }
         var idx = 0;
         objects.forEach(function (elem) {
 
