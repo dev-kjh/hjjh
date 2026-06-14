@@ -268,6 +268,20 @@
             .location .map_info .map_title dd {
                 font-size: calc(15px * var(--inv-scale, 1));
             }
+            /* 예식장 전화 아이콘: top:0 고정이라 여러 줄 배너에서 우측 상단으로
+               치우쳐 보임 → 세로 중앙 정렬. 모바일에선 버튼/아이콘도 inv-scale로
+               키움(PC는 scale=1이라 36px 그대로). */
+            .location .map_info .call_btn {
+                top: 50%;
+                transform: translateY(-50%);
+                width: calc(36px * var(--inv-scale, 1));
+                height: calc(36px * var(--inv-scale, 1));
+                line-height: calc(36px * var(--inv-scale, 1));
+            }
+            .location .map_info .call_btn img {
+                width: calc(20px * var(--inv-scale, 1));
+                margin-top: calc(8px * var(--inv-scale, 1));
+            }
             .location .btn_wrap .map_btn {
                 /* 글자뿐 아니라 버튼 박스도 inv-scale로 키워 모바일에서
                    화면 실제 48px 버튼이 되게 함(PC는 scale=1이라 그대로). */
