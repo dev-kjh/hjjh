@@ -37,6 +37,17 @@
     <link href="./assets/css2(5)" rel="stylesheet"> <!--나눔 브러쉬 스크립트-->
     <link href="./assets/css2(6)" rel="stylesheet"> <!--Cinzel-->
     <link href="./assets/css" rel="stylesheet">
+    <!-- 전체 폰트 실험: Noto Serif KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* HTML 텍스트 전체에 Noto Serif KR 적용(디자인 이미지는 영향 없음).
+           기존 개별 font-family가 많아 !important로 덮어씀. */
+        html, body, #wrap, #wrap *,
+        .account_pop, .account_pop *,
+        .pswp__caption__center {
+            font-family: "Noto Serif KR", "Nanum Myeongjo", serif !important;
+        }
+    </style>
     <link href="./assets/nanum-barun-pen.css" rel="stylesheet">
     <link href="./assets/nanum-barun-gothic.css" rel="stylesheet">
     <link href="./assets/nanum-square-round.css" rel="stylesheet">
