@@ -1419,6 +1419,8 @@
             $('.an_btn.groom').on('click', function () { fn_AccountClose(); $('.account_pop.groom').show(); });
             $('.btn.an_btn.bride').on('click', function () { fn_AccountClose(); $('.account_pop.bride').show(); });
             $('.btn.an_btn.account').on('click', function () { fn_AccountClose(); $('.account_pop.account').show(); });
+            // 카카오톡 공유: 정적 배포라 미지원. 계좌 팝업을 응용한 안내 다이얼로그 표시.
+            $('#kakao-link-btn').on('click', function () { fn_AccountClose(); $('.account_pop.notice').show(); });
             // 혼주 정보 접기/펼치기 토글 (mcard.js 509~512와 동일)
             // 혼주 정보가 기본 펼침 상태이므로 화살표도 펼침(.on)으로 맞춤
             $('.list_wrap').addClass('on');
@@ -1479,6 +1481,19 @@
             [300, 1000, 2500].forEach(function (t) { setTimeout(fitCanvas, t); });
         })();
     </script>
+
+    <!-- 미지원 안내 팝업: 계좌 팝업(.account_pop) 스타일/닫기 로직을 재활용.
+         #wrap 밖에 둬 transform의 fixed 깨짐을 피함(계좌 팝업과 동일). -->
+    <div class="account_pop notice" style="display:none;">
+        <div class="layer_pop">
+            <p style="font-size:17px; color:#333; line-height:1.6; text-align:center; padding:36px 16px 8px;">현재
+                지원하지 않는 기능입니다.</p>
+            <div class="btn_wrap type01">
+                <a href="javascript:accClose();" class="btn">닫기</a>
+            </div>
+        </div>
+        <div class="pop_mask"></div>
+    </div>
 
     <!-- 갤러리 라이트박스 오버레이 템플릿(PhotoSwipe 필수 골격).
          #wrap의 transform이 position:fixed를 깨뜨리므로 #wrap 밖(body 직속)에 둔다. -->
