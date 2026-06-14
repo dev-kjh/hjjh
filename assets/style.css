@@ -686,7 +686,7 @@ input:focus {
     }
 
     .message_wrap .message_top span {
-        font-size: 14px;
+        font-size: 17px;
     }
 
     .message_wrap .message_top .name {
@@ -718,7 +718,7 @@ input:focus {
 
         .message_wrap .message_text p {
             width: calc(100% - 30px);
-            font-size: 14px;
+            font-size: 17px;
             color: #777;
             font-family: "Noto Sans KR", sans-serif;
             letter-spacing: -0.25px;
