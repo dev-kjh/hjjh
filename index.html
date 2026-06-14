@@ -1383,6 +1383,9 @@
                 var scaledW = 800 * scale;
                 var tx = Math.max(0, (vw - scaledW) / 2);
                 wrap.style.transform = 'translateX(' + tx + 'px) scale(' + scale + ')';
+                // 방명록 등 텍스트가 scale로 같이 줄어드는 것을 상쇄: 1/scale을 변수로 전달
+                // → 화면 실제 글자 크기가 기기 해상도와 무관하게 일정해짐
+                wrap.style.setProperty('--inv-scale', (1 / scale).toFixed(4));
                 // transform은 레이아웃 박스를 줄이지 않으므로, 아래 빈 공간을 음수 마진으로 회수
                 wrap.style.marginBottom = '-' + (wrap.offsetHeight * (1 - scale)) + 'px';
             }
