@@ -1438,6 +1438,10 @@
             $('.btn_share[data-type="facebook"]').on('click', function () { fn_AccountClose(); $('.account_pop.notice').show(); });
             // 지도 바로가기: 외부 이동 대신 동일 미지원 안내.
             $('.map_btn').on('click', function () { fn_AccountClose(); $('.account_pop.notice').show(); });
+            // 신랑/신부 연락 아이콘: PII로 #Groom_Phone/#Bride_Phone을 비우자
+            // mcard.js(33~49)가 번호 없으면 .at_/.as_Phone을 hide함 → 다시 표시.
+            // (혼주 아이콘은 인라인 display:inline이라 영향 없음)
+            $('.at_Groom_Phone, .as_Groom_Phone, .at_Bride_Phone, .as_Bride_Phone').show();
             // 전화/SMS: 개인정보 보호로 번호를 소스에서 제거(href=javascript:;).
             // 안내는 href가 아니라 클래스(_Phone) + 예식장 call_btn 기준으로 바인딩.
             $('a[class*="_Phone"], a.call_btn').on('click', function (e) {
