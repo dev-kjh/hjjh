@@ -1421,6 +1421,19 @@
             $('.btn.an_btn.account').on('click', function () { fn_AccountClose(); $('.account_pop.account').show(); });
             // 카카오톡 공유: 정적 배포라 미지원. 계좌 팝업을 응용한 안내 다이얼로그 표시.
             $('#kakao-link-btn').on('click', function () { fn_AccountClose(); $('.account_pop.notice').show(); });
+            // 페이스북 공유도 동일하게 미지원 안내.
+            $('.btn_share[data-type="facebook"]').on('click', function () { fn_AccountClose(); $('.account_pop.notice').show(); });
+            // 전화/SMS: 정적 데모이므로 실제 발신을 막고 동일 안내 표시.
+            $('a[href^="tel:"], a[href^="sms:"]').on('click', function (e) {
+                e.preventDefault();
+                fn_AccountClose();
+                $('.account_pop.notice').show();
+            });
+            // 링크복사: 라이브 주소를 클립보드에 복사.
+            $('.btn_share[data-type="copy"]').on('click', function () {
+                copyToClipboard('https://dev-kjh.github.io/hjjh/');
+                alert('링크가 복사되었습니다.');
+            });
             // 혼주 정보 접기/펼치기 토글 (mcard.js 509~512와 동일)
             // 혼주 정보가 기본 펼침 상태이므로 화살표도 펼침(.on)으로 맞춤
             $('.list_wrap').addClass('on');
