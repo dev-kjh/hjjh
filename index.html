@@ -1426,6 +1426,28 @@
                 $(this).parent('.list_wrap').toggleClass('on');
                 $('.list_con').slideToggle();
             });
+
+            // 갤러리 라이트박스: 썸네일(.gallery_type02 li)을 탭하면 PhotoSwipe로
+            // 전체화면 뷰어를 연다. 라이브러리 기본 호출(initPhotoSwipeFromDOM)은
+            // 셀렉터(.skin_gallery)·기대 마크업(figure/a)이 이 페이지와 안 맞아
+            // 동작하지 않으므로, li>img 구조에 맞춰 직접 연결한다.
+            $('#gallery .gallery_type02 li').on('click', function () {
+                var pswpEl = document.querySelector('.pswp');
+                if (!pswpEl || typeof PhotoSwipe === 'undefined') return;
+                var items = [];
+                $('#gallery .gallery_type02 li img').each(function () {
+                    // 썸네일이 곧 원본 jpg이므로 실제 크기를 그대로 사용
+                    items.push({ src: this.src, w: this.naturalWidth || 1200, h: this.naturalHeight || 1600 });
+                });
+                var gallery = new PhotoSwipe(pswpEl, PhotoSwipeUI_Default, items, {
+                    index: $(this).index(),
+                    bgOpacity: 0.92,
+                    history: false,
+                    shareEl: false,
+                    closeOnScroll: false
+                });
+                gallery.init();
+            });
         });
     </script>
     <script>
@@ -1457,6 +1479,42 @@
             [300, 1000, 2500].forEach(function (t) { setTimeout(fitCanvas, t); });
         })();
     </script>
+
+    <!-- 갤러리 라이트박스 오버레이 템플릿(PhotoSwipe 필수 골격).
+         #wrap의 transform이 position:fixed를 깨뜨리므로 #wrap 밖(body 직속)에 둔다. -->
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <div class="pswp__counter"></div>
+                    <button class="pswp__button pswp__button--close" title="닫기 (Esc)"></button>
+                    <button class="pswp__button pswp__button--fs" title="전체화면"></button>
+                    <button class="pswp__button pswp__button--zoom" title="확대/축소"></button>
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div>
+                <button class="pswp__button pswp__button--arrow--left" title="이전"></button>
+                <button class="pswp__button pswp__button--arrow--right" title="다음"></button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </body>
