@@ -204,6 +204,49 @@
                 padding-bottom: 10%;
             }
 
+            /* 모바일 텍스트 가독성: scale로 작아지는 텍스트 구간에 1/scale 보정.
+               PC(scale=1)에선 기존 px 그대로. 다중행은 line-height 단위없음. */
+            /* 연락처(신랑/신부 연락하기, 혼주 이름) */
+            .call dl dt {
+                font-size: calc(20px * var(--inv-scale, 1));
+                line-height: 1.4;
+            }
+            .call .list_wrap h3 {
+                font-size: calc(15px * var(--inv-scale, 1));
+                line-height: 1.4;
+            }
+            .call .list_wrap .list_con {
+                /* 고정 60px 제거: 글자가 커져도 넘쳐서 겹치지 않게 */
+                height: auto;
+            }
+            .call .list_wrap .list_con p {
+                font-size: calc(16px * var(--inv-scale, 1));
+                line-height: 1.4;
+            }
+            .call .list_wrap span:nth-child(1) {
+                font-size: calc(14px * var(--inv-scale, 1));
+            }
+            /* 송금 버튼 라벨(신랑측/신부측 계좌번호) */
+            .remittance .btn_wrap .an_btn {
+                font-size: calc(16px * var(--inv-scale, 1));
+            }
+            /* 계좌번호 팝업(클릭 시 표시). line-height 단위없음으로 겹침 방지,
+               복사버튼은 박스째 비례 확대해 글자가 넘치지 않도록. */
+            .account_pop .layer_pop dl dt {
+                font-size: calc(16px * var(--inv-scale, 1)) !important;
+                line-height: 1.5;
+            }
+            .account_pop .layer_pop dl dd {
+                font-size: calc(16px * var(--inv-scale, 1));
+                line-height: 1.5;
+            }
+            .account_pop .layer_pop dl dt .copy_btn {
+                font-size: calc(12px * var(--inv-scale, 1)) !important;
+                width: calc(66px * var(--inv-scale, 1));
+                height: calc(22px * var(--inv-scale, 1));
+                line-height: calc(22px * var(--inv-scale, 1));
+            }
+
             .at_Groom_Parents1_Phone {
                 display: none;
             }
