@@ -1427,6 +1427,8 @@
             $('#kakao-link-btn').on('click', function () { fn_AccountClose(); $('.account_pop.notice').show(); });
             // 페이스북 공유도 동일하게 미지원 안내.
             $('.btn_share[data-type="facebook"]').on('click', function () { fn_AccountClose(); $('.account_pop.notice').show(); });
+            // 지도 바로가기: 외부 이동 대신 동일 미지원 안내.
+            $('.map_btn').on('click', function () { fn_AccountClose(); $('.account_pop.notice').show(); });
             // 전화/SMS: 정적 데모이므로 실제 발신을 막고 동일 안내 표시.
             $('a[href^="tel:"], a[href^="sms:"]').on('click', function (e) {
                 e.preventDefault();
