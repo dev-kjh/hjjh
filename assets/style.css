@@ -780,6 +780,17 @@ input:focus {
         border-radius: 5px;
     }
 
+/* PC(스케일=1, 800px 이상): 캔버스가 1:1로 보여 방명록 글자가 다소 커 보이므로 기준 축소 */
+@media (min-width: 800px) {
+    .message_wrap .message_top span {
+        font-size: 12px;
+    }
+
+    .message_wrap .message_text p {
+        font-size: 14px;
+    }
+}
+
 /***** //청첩장 템플릿 *****/
 
 /***** 감사장 템플릿 *****/
