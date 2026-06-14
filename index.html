@@ -195,7 +195,9 @@
             #area11 li {
                 display: flex;
                 flex-direction: column;
-                line-height: 1.4em;
+                /* 단위없는 1.4: 자식(strong/span)이 각자의 (보정된) 폰트크기 기준으로
+                   줄높이를 재계산 → 모바일에서 글자가 커져도 줄이 겹치지 않음 */
+                line-height: 1.4;
             }
 
             .guest_book .area {
