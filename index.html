@@ -227,11 +227,13 @@
                 font-size: calc(14px * var(--inv-scale, 1));
             }
             /* 송금 버튼(신랑측/신부측 계좌번호): 글자뿐 아니라 버튼 박스도
-               inv-scale로 키워 모바일에서 화면 실제 46px 버튼이 되게 함. */
+               inv-scale로 키워 모바일에서 화면 실제 46px 버튼이 되게 함.
+               뒤에 오는 원본 .an_btn 규칙(font-size:14px;height:46px)이 같은
+               specificity로 덮어쓰므로 !important로 이김. */
             .remittance .btn_wrap .an_btn {
-                font-size: calc(16px * var(--inv-scale, 1));
-                height: calc(46px * var(--inv-scale, 1));
-                line-height: calc(46px * var(--inv-scale, 1));
+                font-size: calc(16px * var(--inv-scale, 1)) !important;
+                height: calc(46px * var(--inv-scale, 1)) !important;
+                line-height: calc(46px * var(--inv-scale, 1)) !important;
             }
             /* 계좌번호 팝업(클릭 시 표시). line-height 단위없음으로 겹침 방지,
                복사버튼은 박스째 비례 확대해 글자가 넘치지 않도록. */
@@ -1331,12 +1333,11 @@
             전부터 10~15분 간격으로 왕복 운행\n3,4호선 충무로역 8번출구 앞 탑승\n2,5호선 을지로4가역 9번 출구로 나온 후 GS25시(편의점) 골목에서
             탑승","Invitation":null}]</div>
         <div style="display:none" id="Accounts">[]</div>
-        <div style="display:none" id="GroomAccounts">
-            [{"Invitation_ID":106732,"Sort":1,"Category":1,"Send_Target_Code":"ATC001","Send_Name":"신랑혼주","Bank_Code":"23","Bank_Name":"SC제일은행","Account_Number":"REMOVED","Account_Holder":"김창국"},{"Invitation_ID":106732,"Sort":2,"Category":1,"Send_Target_Code":"ATC003","Send_Name":"신랑","Bank_Code":"88","Bank_Name":"신한은행","Account_Number":"REMOVED","Account_Holder":"김정훈"}]
-        </div>
-        <div style="display:none" id="BrideAccounts">
-            [{"Invitation_ID":106732,"Sort":1,"Category":2,"Send_Target_Code":"ATC002","Send_Name":"신부혼주","Bank_Code":"11","Bank_Name":"NH농협","Account_Number":"REMOVED","Account_Holder":"차병호"},{"Invitation_ID":106732,"Sort":2,"Category":2,"Send_Target_Code":"ATC004","Send_Name":"신부","Bank_Code":"4","Bank_Name":"KB국민","Account_Number":"REMOVED","Account_Holder":"차현주"}]
-        </div>
+        <!-- 정적 배포: 계좌 정보는 위 팝업(.account_list)에 정적 HTML로 직접 들어 있음.
+             이 데이터 섬이 비어있지 않으면 mcard.js가 같은 계좌 dl을 또 동적 생성하는데,
+             정적 dl과 ID가 충돌해 빈 dl이 추가로 붙는다. 비워서 동적 추가를 막음. -->
+        <div style="display:none" id="GroomAccounts"></div>
+        <div style="display:none" id="BrideAccounts"></div>
         <div style="display:none" id="BabyInfos"></div>
 
         <input type="hidden" id="Product_Category_Code" value="PCC01">
@@ -1451,6 +1452,18 @@
             $('.info_detail').on('click', function () {
                 $(this).parent('.list_wrap').toggleClass('on');
                 $('.list_con').slideToggle();
+            });
+
+            // 계좌번호 복사 (mcard.js 176~184/206~214와 동일). 원본 바인딩은
+            // #GroomAccounts/#BrideAccounts 데이터 섬을 비우면서 조건문 안이라
+            // 건너뛰어지므로 여기서 다시 연결.
+            $('.copy_btn.groom').on('click', function () {
+                copyToClipboard($('#inputGroomAccountNumber_' + $(this).attr('idx')).text());
+                toast_groom(this, '복사되었습니다.', 1500);
+            });
+            $('.copy_btn.bride').on('click', function () {
+                copyToClipboard($('#inputBrideAccountNumber_' + $(this).attr('idx')).text());
+                toast_bride(this, '복사되었습니다.', 1500);
             });
         });
     </script>
