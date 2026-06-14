@@ -226,9 +226,12 @@
             .call .list_wrap span:nth-child(1) {
                 font-size: calc(14px * var(--inv-scale, 1));
             }
-            /* 송금 버튼 라벨(신랑측/신부측 계좌번호) */
+            /* 송금 버튼(신랑측/신부측 계좌번호): 글자뿐 아니라 버튼 박스도
+               inv-scale로 키워 모바일에서 화면 실제 46px 버튼이 되게 함. */
             .remittance .btn_wrap .an_btn {
                 font-size: calc(16px * var(--inv-scale, 1));
+                height: calc(46px * var(--inv-scale, 1));
+                line-height: calc(46px * var(--inv-scale, 1));
             }
             /* 계좌번호 팝업(클릭 시 표시). line-height 단위없음으로 겹침 방지,
                복사버튼은 박스째 비례 확대해 글자가 넘치지 않도록. */
@@ -1432,6 +1435,12 @@
         // 종료되어, 그 뒤에 등록되던 클릭 핸들러(계좌 팝업 열기, 혼주 토글)가
         // 바인딩되지 않는다. 동일 동작을 전역 함수를 재사용해 독립적으로 연결.
         $(function () {
+            // #wrap에 transform이 걸려 있어 그 안의 position:fixed 팝업은 뷰포트가
+            // 아니라 축소된 800px 캔버스를 기준으로 잡혀, 콘텐츠가 캔버스 중앙(=화면
+            // 밖)으로 밀리고 회색 마스크만 보였다. 팝업을 body 직속으로 옮겨
+            // fixed 기준을 뷰포트로 되돌리고, 캔버스 스케일도 받지 않게 한다.
+            $('.account_pop').appendTo('body');
+
             // 계좌번호 버튼 → 해당 팝업 열기 (mcard.js 577~590과 동일)
             $('.an_btn.groom').on('click', function () { fn_AccountClose(); $('.account_pop.groom').show(); });
             $('.btn.an_btn.bride').on('click', function () { fn_AccountClose(); $('.account_pop.bride').show(); });
