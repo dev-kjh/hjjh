@@ -924,24 +924,9 @@
         <!-- 신랑계좌번호 팝업 -->
         <div class="account_pop groom" style="display: none;">
             <div class="layer_pop">
-                <div class="account_list groom">
-                    <dl id="dl_groom_1">
-                        <dt><span id="inputGroomSender_1" class="input_groom_sender">신랑혼주</span>&nbsp;&nbsp;계좌<a
-                                href="javascript:;" class="copy_btn groom" idx="1">복사하기</a></dt>
-                        <dd><span id="inputGroomBank_1" class="input_groom_bank">SC제일은행</span>&nbsp;&nbsp;(예금주 : <span
-                                id="inputGroomAccountHolder_1" class="input_groom_accountholder">김창국</span>)</dd>
-                        <dd><span id="inputGroomAccountNumber_1" class="input_groom_accountnumber">REMOVED</span>
-                        </dd>
-                    </dl>
-                    <dl id="dl_groom_2">
-                        <dt><span id="inputGroomSender_2" class="input_groom_sender">신랑</span>&nbsp;&nbsp;계좌<a
-                                href="javascript:;" class="copy_btn groom" idx="2">복사하기</a></dt>
-                        <dd><span id="inputGroomBank_2" class="input_groom_bank">신한은행</span>&nbsp;&nbsp;(예금주 : <span
-                                id="inputGroomAccountHolder_2" class="input_groom_accountholder">김정훈</span>)</dd>
-                        <dd><span id="inputGroomAccountNumber_2" class="input_groom_accountnumber">REMOVED</span>
-                        </dd>
-                    </dl>
-                </div>
+                <!-- 계좌 dl은 mcard.js가 #GroomAccounts 데이터로 동적 생성(정적 dl을
+                     두면 ID 충돌로 빈 dl이 중복됨). -->
+                <div class="account_list groom"></div>
                 <div class="btn_wrap type01">
                     <a href="javascript:accClose();" class="btn">닫기</a>
                 </div>
@@ -954,24 +939,8 @@
         <!-- 신부계좌번호 팝업 -->
         <div class="account_pop bride" style="display: none;">
             <div class="layer_pop">
-                <div class="account_list bride">
-                    <dl id="dl_bride_1">
-                        <dt><span id="inputBrideSender_1" class="input_bride_sender">신부혼주</span>&nbsp;&nbsp;계좌<a
-                                href="javascript:;" class="copy_btn bride" idx="1">복사하기</a></dt>
-                        <dd><span id="inputBrideBank_1" class="input_bride_bank">NH농협</span>&nbsp;&nbsp;(예금주 : <span
-                                id="inputBrideAccountHolder_1" class="input_bride_accountholder">차병호</span>)</dd>
-                        <dd><span id="inputBrideAccountNumber_1" class="input_bride_accountnumber">REMOVED</span>
-                        </dd>
-                    </dl>
-                    <dl id="dl_bride_2">
-                        <dt><span id="inputBrideSender_2" class="input_bride_sender">신부</span>&nbsp;&nbsp;계좌<a
-                                href="javascript:;" class="copy_btn bride" idx="2">복사하기</a></dt>
-                        <dd><span id="inputBrideBank_2" class="input_bride_bank">KB국민</span>&nbsp;&nbsp;(예금주 : <span
-                                id="inputBrideAccountHolder_2" class="input_bride_accountholder">차현주</span>)</dd>
-                        <dd><span id="inputBrideAccountNumber_2"
-                                class="input_bride_accountnumber">REMOVED</span></dd>
-                    </dl>
-                </div>
+                <!-- 계좌 dl은 mcard.js가 #BrideAccounts 데이터로 동적 생성. -->
+                <div class="account_list bride"></div>
                 <div class="btn_wrap type01">
                     <a href="javascript:accClose();" class="btn">닫기</a>
                 </div>
@@ -1333,11 +1302,15 @@
             전부터 10~15분 간격으로 왕복 운행\n3,4호선 충무로역 8번출구 앞 탑승\n2,5호선 을지로4가역 9번 출구로 나온 후 GS25시(편의점) 골목에서
             탑승","Invitation":null}]</div>
         <div style="display:none" id="Accounts">[]</div>
-        <!-- 정적 배포: 계좌 정보는 위 팝업(.account_list)에 정적 HTML로 직접 들어 있음.
-             이 데이터 섬이 비어있지 않으면 mcard.js가 같은 계좌 dl을 또 동적 생성하는데,
-             정적 dl과 ID가 충돌해 빈 dl이 추가로 붙는다. 비워서 동적 추가를 막음. -->
-        <div style="display:none" id="GroomAccounts"></div>
-        <div style="display:none" id="BrideAccounts"></div>
+        <!-- 이 데이터 섬은 계좌 표시 데이터이자 송금 버튼 노출 조건(groom_accounts.length>0).
+             mcard.js가 이걸로 계좌 dl을 동적 생성하므로 팝업의 정적 dl은 두지 않는다
+             (정적 dl을 함께 두면 ID 충돌로 빈 dl이 중복 생성됨). -->
+        <div style="display:none" id="GroomAccounts">
+            [{"Invitation_ID":106732,"Sort":1,"Category":1,"Send_Target_Code":"ATC001","Send_Name":"신랑혼주","Bank_Code":"23","Bank_Name":"SC제일은행","Account_Number":"REMOVED","Account_Holder":"김창국"},{"Invitation_ID":106732,"Sort":2,"Category":1,"Send_Target_Code":"ATC003","Send_Name":"신랑","Bank_Code":"88","Bank_Name":"신한은행","Account_Number":"REMOVED","Account_Holder":"김정훈"}]
+        </div>
+        <div style="display:none" id="BrideAccounts">
+            [{"Invitation_ID":106732,"Sort":1,"Category":2,"Send_Target_Code":"ATC002","Send_Name":"신부혼주","Bank_Code":"11","Bank_Name":"NH농협","Account_Number":"REMOVED","Account_Holder":"차병호"},{"Invitation_ID":106732,"Sort":2,"Category":2,"Send_Target_Code":"ATC004","Send_Name":"신부","Bank_Code":"4","Bank_Name":"KB국민","Account_Number":"REMOVED","Account_Holder":"차현주"}]
+        </div>
         <div style="display:none" id="BabyInfos"></div>
 
         <input type="hidden" id="Product_Category_Code" value="PCC01">
@@ -1452,18 +1425,6 @@
             $('.info_detail').on('click', function () {
                 $(this).parent('.list_wrap').toggleClass('on');
                 $('.list_con').slideToggle();
-            });
-
-            // 계좌번호 복사 (mcard.js 176~184/206~214와 동일). 원본 바인딩은
-            // #GroomAccounts/#BrideAccounts 데이터 섬을 비우면서 조건문 안이라
-            // 건너뛰어지므로 여기서 다시 연결.
-            $('.copy_btn.groom').on('click', function () {
-                copyToClipboard($('#inputGroomAccountNumber_' + $(this).attr('idx')).text());
-                toast_groom(this, '복사되었습니다.', 1500);
-            });
-            $('.copy_btn.bride').on('click', function () {
-                copyToClipboard($('#inputBrideAccountNumber_' + $(this).attr('idx')).text());
-                toast_bride(this, '복사되었습니다.', 1500);
             });
         });
     </script>
